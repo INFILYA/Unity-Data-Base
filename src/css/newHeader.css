@@ -1,0 +1,71 @@
+header {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+header .header-background {
+  background-color: aliceblue;
+  filter: contrast(50%) grayscale(20%);
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+header .barWrapper {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 15px;
+  padding-left: 3vmax;
+  padding-right: 3vmax;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+}
+header .barWrapper .innerContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+header .barWrapper .innerContainer .titleNavWrapper {
+  width: 100%;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a .my-logo-wrapper-header img {
+  width: 340px;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a .my-logo-wrapper-header img:hover {
+  scale: 1.15;
+  transition: 0.3s;
+}
+header .barWrapper .innerContainer .navbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+header .barWrapper .innerContainer .navbar-wrapper a {
+  margin: 10px;
+}
+header .barWrapper .innerContainer .actions {
+  width: 50%;
+  display: flex;
+  justify-content: end;
+}
+header .barWrapper .innerContainer .actions .social {
+  display: flex;
+}
+header .barWrapper .innerContainer .actions .social a {
+  margin: 10px;
+}
+header .barWrapper .innerContainer .actions .social a img {
+  width: 35px;
+}
+header .barWrapper .innerContainer .actions .social a img:hover {
+  scale: 1.25;
+  transition: 0.3s;
+}
+
+/*# sourceMappingURL=newHeader.css.map */

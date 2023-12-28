@@ -65,11 +65,12 @@ export default function SendForm() {
     }
     setUserInfo({ ...userInfo, [e.target.name]: inputNumber });
   };
-  const syledValidator = (boolean: boolean): string => {
+  const styledComponentValidator = (boolean: boolean): string => {
     return boolean.toString();
   };
   const isEmptyFields = Object.values(userInfo).some((field) => checkLength(field as string));
   const properPhoneLength = userInfo.telephone.length !== 12;
+
   const disabledButton =
     checkUserEmail(userInfo.email) ||
     isEmptyFields ||
@@ -81,14 +82,14 @@ export default function SendForm() {
         <div className="block-content">
           <div className="form-wrapper">
             <div className="title-form-wrapper">
-              <h2>User Form</h2>
+              <h2>Unity Member Form</h2>
             </div>
             <form action="" onSubmit={submitUserInfo}>
               {formIsSended ? (
                 <>
                   <div className="field-list">
                     {/* Name  */}
-                    <Fieldset valid={syledValidator(checkLength(userInfo.firstName))}>
+                    <Fieldset valid={styledComponentValidator(checkLength(userInfo.firstName))}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -108,7 +109,7 @@ export default function SendForm() {
                       />
                     </Fieldset>
                     {/* Surname */}
-                    <Fieldset valid={syledValidator(checkLength(userInfo.lastName))}>
+                    <Fieldset valid={styledComponentValidator(checkLength(userInfo.lastName))}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -128,7 +129,7 @@ export default function SendForm() {
                       />
                     </Fieldset>
                     {/* Email */}
-                    <Fieldset valid={syledValidator(checkUserEmail(userInfo.email))}>
+                    <Fieldset valid={styledComponentValidator(checkUserEmail(userInfo.email))}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -148,8 +149,45 @@ export default function SendForm() {
                         required
                       />
                     </Fieldset>
+                    {/* Telephone */}
+                    <Fieldset valid={styledComponentValidator(properPhoneLength)}>
+                      <legend>
+                        <div className="forspan">
+                          <span>
+                            <strong>Telephone</strong>
+                          </span>
+                          {properPhoneLength && <span style={{ opacity: 0.5 }}> (required)</span>}
+                        </div>
+                      </legend>
+                      <input
+                        type="tel"
+                        onChange={handlePhoneChange}
+                        value={userInfo.telephone}
+                        name="telephone"
+                        required
+                      />
+                    </Fieldset>
+                    {/* Birthday */}
+                    <Fieldset valid={styledComponentValidator(!userInfo.birthday)}>
+                      <legend>
+                        <div className="forspan">
+                          <span>
+                            <strong>Date of Birth</strong>
+                          </span>
+                          {!userInfo.birthday && <span style={{ opacity: 0.5 }}> (required)</span>}
+                        </div>
+                      </legend>
+                      <input
+                        type="date"
+                        onChange={handleUserChange}
+                        value={userInfo.birthday}
+                        name="birthday"
+                        style={{ textAlign: "center" }}
+                        required
+                      />
+                    </Fieldset>
                     {/* Position */}
-                    <Fieldset valid={syledValidator(!userInfo.position)}>
+                    <Fieldset valid={styledComponentValidator(!userInfo.position)}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -168,7 +206,7 @@ export default function SendForm() {
                       </select>
                     </Fieldset>
                     {/* Hand */}
-                    <Fieldset valid={syledValidator(!userInfo.hand)}>
+                    <Fieldset valid={styledComponentValidator(!userInfo.hand)}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -184,45 +222,8 @@ export default function SendForm() {
                         <option value="ambidextrous">Ambidextrous</option>
                       </select>
                     </Fieldset>
-                    {/* Telephone */}
-                    <Fieldset valid={syledValidator(properPhoneLength)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Telephone</strong>
-                          </span>
-                          {properPhoneLength && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <input
-                        type="tel"
-                        onChange={handlePhoneChange}
-                        value={userInfo.telephone}
-                        name="telephone"
-                        required
-                      />
-                    </Fieldset>
-                    {/* Birthday */}
-                    <Fieldset valid={syledValidator(!userInfo.birthday)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Date of Birth</strong>
-                          </span>
-                          {!userInfo.birthday && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <input
-                        type="date"
-                        onChange={handleUserChange}
-                        value={userInfo.birthday}
-                        name="birthday"
-                        style={{ textAlign: "center" }}
-                        required
-                      />
-                    </Fieldset>
                     {/* Height */}
-                    <Fieldset valid={syledValidator(!userInfo.height)}>
+                    <Fieldset valid={styledComponentValidator(!userInfo.height)}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -247,7 +248,7 @@ export default function SendForm() {
                       </div>
                     </Fieldset>
                     {/* Weight */}
-                    <Fieldset valid={syledValidator(!userInfo.weight)}>
+                    <Fieldset valid={styledComponentValidator(!userInfo.weight)}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -269,7 +270,7 @@ export default function SendForm() {
                       </div>
                     </Fieldset>
                     {/* Number */}
-                    <Fieldset valid={syledValidator(!userInfo.number)}>
+                    <Fieldset valid={styledComponentValidator(!userInfo.number)}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -291,7 +292,7 @@ export default function SendForm() {
                       </div>
                     </Fieldset>
                     {/* Reach Height */}
-                    <Fieldset valid={syledValidator(!userInfo.reach)}>
+                    <Fieldset valid={styledComponentValidator(!userInfo.reach)}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -315,7 +316,7 @@ export default function SendForm() {
                       </div>
                     </Fieldset>
                     {/* Photo */}
-                    <Fieldset valid={syledValidator(checkPhotoFormat(userInfo.photo))}>
+                    <Fieldset valid={styledComponentValidator(checkPhotoFormat(userInfo.photo))}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -337,7 +338,7 @@ export default function SendForm() {
                     </Fieldset>
                   </div>
                   <div className="form-button-wrapper">
-                    <Button text="Send" type="submit" disabled={disabledButton} />
+                    <Button text="Submit" type="submit" disabled={disabledButton} />
                   </div>
                 </>
               ) : (
