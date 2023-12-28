@@ -1,0 +1,110 @@
+body {
+  margin: 0 auto;
+}
+
+header,
+main,
+footer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+}
+
+header {
+  background-color: red;
+}
+
+main article section .block-content {
+  width: 33vmax;
+}
+main article section .block-content .form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+main article section .block-content .form-wrapper .title-form-wrapper {
+  background-color: #693575;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+main article section .block-content .form-wrapper .title-form-wrapper h2 {
+  color: white;
+}
+main article section .block-content .form-wrapper form .form-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+main article section .block-content .form-wrapper form .form-button-wrapper button {
+  background-color: #3789b7;
+  padding: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 600;
+}
+main article section .block-content .form-wrapper form .form-button-wrapper button:hover {
+  background-color: #693575;
+}
+main article section .block-content .form-wrapper form .form-button-wrapper button[disabled] {
+  background-color: gainsboro;
+}
+main article section .block-content .form-wrapper form .field-list {
+  padding: 5px 10px 5px 10px;
+  border: 1px solid black;
+}
+main article section .block-content .form-wrapper form .field-list fieldset {
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+main article section .block-content .form-wrapper form .field-list fieldset legend {
+  font-size: 20px;
+}
+main article section .block-content .form-wrapper form .field-list fieldset legend span:first-child {
+  color: black;
+}
+main article section .block-content .form-wrapper form .field-list fieldset .measure-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+main article section .block-content .form-wrapper form .field-list fieldset .measure-wrapper div {
+  font-size: 20px;
+}
+main article section .block-content .form-wrapper form .field-list fieldset input {
+  padding: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+main article section .block-content .form-wrapper form .field-list fieldset select {
+  border: none;
+  background-color: #3789b7;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-align: center;
+}
+main article section .block-content .form-wrapper form .field-list fieldset select option {
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  background-color: green;
+}
+
+/*# sourceMappingURL=newMain.css.map */
