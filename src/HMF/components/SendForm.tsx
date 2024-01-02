@@ -98,7 +98,6 @@ export default function SendForm() {
     isEmptyFields ||
     properPhoneLength ||
     checkPhotoFormat(userInfo.photo);
-  console.log(userInfo);
   return (
     <SectionWrapper
       content={

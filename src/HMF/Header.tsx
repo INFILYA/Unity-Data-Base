@@ -15,6 +15,7 @@ export default function Header() {
       console.error(err);
     }
   }
+  console.log(isRegistratedUser?.email);
   return (
     <>
       <div className="header-background"></div>
