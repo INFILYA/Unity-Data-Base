@@ -31,6 +31,22 @@ export default function SendForm() {
     setUserInfo({ ...userInfo, team: "" });
   }
 
+  function handleFillCoachFields() {
+    setUserInfo({
+      ...userInfo,
+      hand: "none",
+      height: "none",
+      weight: "none",
+      number: "none",
+      reach: "none",
+    });
+  }
+  function handleBackNonCoachesFields() {
+    if (userInfo.position !== "coach") {
+      setUserInfo({ ...userInfo, hand: "", height: 0, weight: 0, number: 0, reach: 0 });
+    }
+  }
+
   const submitUserInfo = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormIsSended(!formIsSended);
@@ -82,7 +98,7 @@ export default function SendForm() {
     isEmptyFields ||
     properPhoneLength ||
     checkPhotoFormat(userInfo.photo);
-
+  console.log(userInfo);
   return (
     <SectionWrapper
       content={
@@ -244,124 +260,150 @@ export default function SendForm() {
                         </div>
                       </legend>
                       <select onChange={handleUserChange} name="position">
-                        <option value="">Choose position</option>
-                        <option value="outsideHitter">Outside Hitter</option>
-                        <option value="opposite">Opposite</option>
-                        <option value="setter">Setter</option>
-                        <option value="libero">Libero</option>
-                        <option value="middleBlocker">Middle Blocker</option>
+                        <option value="" onClick={handleBackNonCoachesFields}>
+                          Choose position
+                        </option>
+                        <option value="outsideHitter" onClick={handleBackNonCoachesFields}>
+                          Outside Hitter
+                        </option>
+                        <option value="opposite" onClick={handleBackNonCoachesFields}>
+                          Opposite
+                        </option>
+                        <option value="setter" onClick={handleBackNonCoachesFields}>
+                          Setter
+                        </option>
+                        <option value="libero" onClick={handleBackNonCoachesFields}>
+                          Libero
+                        </option>
+                        <option value="middleBlocker" onClick={handleBackNonCoachesFields}>
+                          Middle Blocker
+                        </option>
+                        <option value="coach" onClick={handleFillCoachFields}>
+                          Coach
+                        </option>
                       </select>
                     </Fieldset>
-                    {/* Hand */}
-                    <Fieldset valid={styledComponentValidator(!userInfo.hand)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Dominant Hand</strong>
-                          </span>
-                          {!userInfo.hand && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <select onChange={handleUserChange} name="hand">
-                        <option value="">Choose hand</option>
-                        <option value="left">Left</option>
-                        <option value="right">Right</option>
-                        <option value="ambidextrous">Ambidextrous</option>
-                      </select>
-                    </Fieldset>
-                    {/* Height */}
-                    <Fieldset valid={styledComponentValidator(!userInfo.height)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Height</strong>
-                          </span>
-                          {!userInfo.height && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <div className="measure-wrapper">
-                        <div>
-                          {userInfo.height} cm ; {Math.round(userInfo.height / 2.54 / 1.2) / 10}{" "}
-                          Foots
-                        </div>
-                        <input
-                          type="range"
-                          onChange={handleUserChange}
-                          value={userInfo.height}
-                          name="height"
-                          min={150}
-                          max={220}
-                        />
-                      </div>
-                    </Fieldset>
-                    {/* Weight */}
-                    <Fieldset valid={styledComponentValidator(!userInfo.weight)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Weight</strong>
-                          </span>
-                          {!userInfo.weight && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <div className="measure-wrapper">
-                        <div>{userInfo.weight} kg</div>
-                        <input
-                          type="range"
-                          onChange={handleUserChange}
-                          value={userInfo.weight}
-                          name="weight"
-                          min={40}
-                          max={120}
-                        />
-                      </div>
-                    </Fieldset>
-                    {/* Number */}
-                    <Fieldset valid={styledComponentValidator(!userInfo.number)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Jersey number</strong>
-                          </span>
-                          {!userInfo.number && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <div className="measure-wrapper">
-                        <div># {userInfo.number}</div>
-                        <input
-                          type="range"
-                          onChange={handleUserChange}
-                          value={userInfo.number}
-                          name="number"
-                          min={1}
-                          max={99}
-                        />
-                      </div>
-                    </Fieldset>
-                    {/* Reach Height */}
-                    <Fieldset valid={styledComponentValidator(!userInfo.reach)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Reach height</strong>
-                          </span>
-                          {!userInfo.reach && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <div className="measure-wrapper">
-                        <div>
-                          {userInfo.reach} cm ; {Math.round(userInfo.reach / 2.54 / 1.2) / 10} Foots
-                        </div>
-                        <input
-                          type="range"
-                          onChange={handleUserChange}
-                          value={userInfo.reach}
-                          name="reach"
-                          min={280}
-                          max={380}
-                        />
-                      </div>
-                    </Fieldset>
+                    {!(userInfo.position === "coach" || userInfo.position === "") && (
+                      <>
+                        {/* Hand */}
+                        <Fieldset valid={styledComponentValidator(!userInfo.hand)}>
+                          <legend>
+                            <div className="forspan">
+                              <span>
+                                <strong>Dominant Hand</strong>
+                              </span>
+                              {!userInfo.hand && <span style={{ opacity: 0.5 }}> (required)</span>}
+                            </div>
+                          </legend>
+                          <select onChange={handleUserChange} name="hand">
+                            <option value="">Choose hand</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="ambidextrous">Ambidextrous</option>
+                          </select>
+                        </Fieldset>
+                        {/* Height */}
+                        <Fieldset valid={styledComponentValidator(!userInfo.height)}>
+                          <legend>
+                            <div className="forspan">
+                              <span>
+                                <strong>Height</strong>
+                              </span>
+                              {!userInfo.height && (
+                                <span style={{ opacity: 0.5 }}> (required)</span>
+                              )}
+                            </div>
+                          </legend>
+                          <div className="measure-wrapper">
+                            <div>
+                              {userInfo.height} cm ;{" "}
+                              {Math.round(+userInfo.height / 2.54 / 1.2) / 10} Foots
+                            </div>
+                            <input
+                              type="range"
+                              onChange={handleUserChange}
+                              value={userInfo.height}
+                              name="height"
+                              min={150}
+                              max={220}
+                            />
+                          </div>
+                        </Fieldset>
+                        {/* Weight */}
+                        <Fieldset valid={styledComponentValidator(!userInfo.weight)}>
+                          <legend>
+                            <div className="forspan">
+                              <span>
+                                <strong>Weight</strong>
+                              </span>
+                              {!userInfo.weight && (
+                                <span style={{ opacity: 0.5 }}> (required)</span>
+                              )}
+                            </div>
+                          </legend>
+                          <div className="measure-wrapper">
+                            <div>{userInfo.weight} kg</div>
+                            <input
+                              type="range"
+                              onChange={handleUserChange}
+                              value={userInfo.weight}
+                              name="weight"
+                              min={40}
+                              max={120}
+                            />
+                          </div>
+                        </Fieldset>
+                        {/* Number */}
+                        <Fieldset valid={styledComponentValidator(!userInfo.number)}>
+                          <legend>
+                            <div className="forspan">
+                              <span>
+                                <strong>Jersey number</strong>
+                              </span>
+                              {!userInfo.number && (
+                                <span style={{ opacity: 0.5 }}> (required)</span>
+                              )}
+                            </div>
+                          </legend>
+                          <div className="measure-wrapper">
+                            <div># {userInfo.number}</div>
+                            <input
+                              type="range"
+                              onChange={handleUserChange}
+                              value={userInfo.number}
+                              name="number"
+                              min={1}
+                              max={99}
+                            />
+                          </div>
+                        </Fieldset>
+                        {/* Reach Height */}
+                        <Fieldset valid={styledComponentValidator(!userInfo.reach)}>
+                          <legend>
+                            <div className="forspan">
+                              <span>
+                                <strong>Reach height</strong>
+                              </span>
+                              {!userInfo.reach && <span style={{ opacity: 0.5 }}> (required)</span>}
+                            </div>
+                          </legend>
+                          <div className="measure-wrapper">
+                            <div>
+                              {userInfo.reach} cm ; {Math.round(+userInfo.reach / 2.54 / 1.2) / 10}{" "}
+                              Foots
+                            </div>
+                            <input
+                              type="range"
+                              onChange={handleUserChange}
+                              value={userInfo.reach}
+                              name="reach"
+                              min={280}
+                              max={380}
+                            />
+                          </div>
+                        </Fieldset>
+                      </>
+                    )}
                     {/* Photo */}
                     <Fieldset valid={styledComponentValidator(checkPhotoFormat(userInfo.photo))}>
                       <legend>

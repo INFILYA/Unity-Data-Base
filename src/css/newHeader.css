@@ -73,17 +73,13 @@ header .barWrapper .innerContainer .navbar-wrapper a {
 header .barWrapper .innerContainer .actions {
   width: 30%;
   display: flex;
-  align-items: center;
   justify-content: end;
 }
 header .barWrapper .innerContainer .actions .social {
   display: flex;
-  width: 60%;
-  justify-content: end;
-  margin-right: 1vmax;
 }
 header .barWrapper .innerContainer .actions .social a {
-  margin: 0.33vmax;
+  margin: 0.5vmax;
 }
 header .barWrapper .innerContainer .actions .social a img {
   width: 35px;
@@ -96,6 +92,7 @@ header .barWrapper .innerContainer .actions .logout-button-wrapper {
   display: flex;
   justify-content: center;
   width: 40%;
+  margin-left: 2vmin;
 }
 
 /*# sourceMappingURL=newHeader.css.map */
