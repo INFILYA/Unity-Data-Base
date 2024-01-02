@@ -32,7 +32,7 @@ header .barWrapper .innerContainer {
   width: 100%;
 }
 header .barWrapper .innerContainer .titleNavWrapper {
-  width: 80%;
+  width: 70%;
   height: 60px;
   display: flex;
   min-width: 340px;
@@ -71,15 +71,19 @@ header .barWrapper .innerContainer .navbar-wrapper a {
   margin: 10px;
 }
 header .barWrapper .innerContainer .actions {
-  width: 20%;
+  width: 30%;
   display: flex;
+  align-items: center;
   justify-content: end;
 }
 header .barWrapper .innerContainer .actions .social {
   display: flex;
+  width: 60%;
+  justify-content: end;
+  margin-right: 1vmax;
 }
 header .barWrapper .innerContainer .actions .social a {
-  margin: 10px;
+  margin: 0.33vmax;
 }
 header .barWrapper .innerContainer .actions .social a img {
   width: 35px;
@@ -87,6 +91,11 @@ header .barWrapper .innerContainer .actions .social a img {
 header .barWrapper .innerContainer .actions .social a img:hover {
   scale: 1.25;
   transition: 0.3s;
+}
+header .barWrapper .innerContainer .actions .logout-button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 40%;
 }
 
 /*# sourceMappingURL=newHeader.css.map */

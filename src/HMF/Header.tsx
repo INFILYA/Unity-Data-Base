@@ -16,7 +16,7 @@ export default function Header() {
     }
   }
   return (
-    <header>
+    <>
       <div className="header-background"></div>
       <div className="barWrapper">
         <div className="innerContainer">
@@ -51,11 +51,15 @@ export default function Header() {
               <a href="https://twitter.com/UnityVballClub">
                 <img alt="" src="/photos/twitter.png"></img>
               </a>
-              {isRegistratedUser && <Button onClick={logout} text="Log out" type="button" />}
             </div>
+            {isRegistratedUser && (
+              <div className="logout-button-wrapper">
+                <Button onClick={logout} text="Log out" type="button" />
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }

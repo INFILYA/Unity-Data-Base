@@ -12,6 +12,29 @@ footer {
   min-height: 5vh;
 }
 
+.regular-button {
+  background-color: #3789b7;
+  padding: 0.66vmax;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  min-height: 35px;
+  max-width: 150px;
+  box-sizing: border-box;
+  &:hover {
+    background-color: #693575;
+    scale: 1.15;
+    transition: 0.5s;
+  }
+}
+.regular-button[disabled] {
+  background-color: gainsboro;
+  scale: 1;
+}
+
 main {
   margin-top: 91.3px;
   article {
@@ -36,26 +59,6 @@ main {
               display: flex;
               justify-content: center;
               margin: 10px;
-              button {
-                background-color: #3789b7;
-                padding: 15px;
-                padding-left: 20px;
-                padding-right: 20px;
-                color: white;
-                border: none;
-                border-radius: 25px;
-                font-size: 18px;
-                font-weight: 600;
-                &:hover {
-                  background-color: #693575;
-                  scale: 1.15;
-                  transition: 0.5s;
-                }
-              }
-              button[disabled] {
-                background-color: gainsboro;
-                scale: 1;
-              }
             }
             .field-list {
               padding: 5px 10px 5px 10px;
