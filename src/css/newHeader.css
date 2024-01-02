@@ -32,14 +32,35 @@ header .barWrapper .innerContainer {
   width: 100%;
 }
 header .barWrapper .innerContainer .titleNavWrapper {
-  width: 100%;
+  width: 80%;
+  height: 60px;
+  display: flex;
+  min-width: 340px;
 }
-header .barWrapper .innerContainer .titleNavWrapper .logo a .my-logo-wrapper-header img {
-  width: 340px;
+header .barWrapper .innerContainer .titleNavWrapper .logo {
+  display: flex;
 }
-header .barWrapper .innerContainer .titleNavWrapper .logo a .my-logo-wrapper-header img:hover {
-  scale: 1.15;
-  transition: 0.3s;
+header .barWrapper .innerContainer .titleNavWrapper .logo a {
+  text-decoration: none;
+  display: flex;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a .my-logo-wrapper-header {
+  display: flex;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a img {
+  margin-right: 15px;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a .photoUrl-displayName-wrapper {
+  display: flex;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a .photoUrl-displayName-wrapper img {
+  border-radius: 50%;
+}
+header .barWrapper .innerContainer .titleNavWrapper .logo a .photoUrl-displayName-wrapper div {
+  font-size: 20px;
+  font-weight: 600;
+  align-self: center;
+  margin-right: 15px;
 }
 header .barWrapper .innerContainer .navbar-wrapper {
   width: 100%;
@@ -50,7 +71,7 @@ header .barWrapper .innerContainer .navbar-wrapper a {
   margin: 10px;
 }
 header .barWrapper .innerContainer .actions {
-  width: 50%;
+  width: 20%;
   display: flex;
   justify-content: end;
 }

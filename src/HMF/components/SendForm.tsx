@@ -10,6 +10,8 @@ export default function SendForm() {
     firstName: "",
     lastName: "",
     email: "",
+    gender: "",
+    team: "",
     position: "",
     hand: "",
     telephone: "",
@@ -23,6 +25,10 @@ export default function SendForm() {
 
   function handleUserChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  }
+
+  function handleUserTeamCancel() {
+    setUserInfo({ ...userInfo, team: "" });
   }
 
   const submitUserInfo = (e: FormEvent<HTMLFormElement>) => {
@@ -76,6 +82,7 @@ export default function SendForm() {
     isEmptyFields ||
     properPhoneLength ||
     checkPhotoFormat(userInfo.photo);
+
   return (
     <SectionWrapper
       content={
@@ -186,6 +193,46 @@ export default function SendForm() {
                         required
                       />
                     </Fieldset>
+                    {/* Gender*/}
+                    <Fieldset valid={styledComponentValidator(!userInfo.gender)}>
+                      <legend>
+                        <div className="forspan">
+                          <span>
+                            <strong>Your gender</strong>
+                          </span>
+                          {!userInfo.gender && <span style={{ opacity: 0.5 }}> (required)</span>}
+                        </div>
+                      </legend>
+                      <select onChange={handleUserChange} name="gender">
+                        <option value="" onClick={handleUserTeamCancel}>
+                          Choose your gender
+                        </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                    </Fieldset>
+                    {/* Belongs to team */}
+                    {userInfo.gender && (
+                      <Fieldset valid={styledComponentValidator(!userInfo.team)}>
+                        <legend>
+                          <div className="forspan">
+                            <span>
+                              <strong>Team</strong>
+                            </span>
+                            {!userInfo.team && <span style={{ opacity: 0.5 }}> (required)</span>}
+                          </div>
+                        </legend>
+                        <select onChange={handleUserChange} name="team">
+                          <option value="">Choose your team</option>
+                          <option value="u-13">U-13</option>
+                          <option value="u-14">U-14</option>
+                          <option value="u-15">U-15</option>
+                          <option value="u-16">U-16</option>
+                          <option value="u-17">U-17</option>
+                          <option value="u-18">U-18</option>
+                        </select>
+                      </Fieldset>
+                    )}
                     {/* Position */}
                     <Fieldset valid={styledComponentValidator(!userInfo.position)}>
                       <legend>
@@ -342,7 +389,7 @@ export default function SendForm() {
                   </div>
                 </>
               ) : (
-                <div className="form-sended-wrapper">Thanks</div>
+                <div className="form-sended-wrapper">Thank you</div>
               )}
             </form>
           </div>

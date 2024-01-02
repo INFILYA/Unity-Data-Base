@@ -29,16 +29,31 @@ header {
       align-items: center;
       width: 100%;
       .titleNavWrapper {
-        width: 100%;
+        width: 80%;
+        height: 60px;
+        display: flex;
+        min-width: 340px;
         .logo {
+          display: flex;
           a {
+            text-decoration: none;
+            display: flex;
             .my-logo-wrapper-header {
+              display: flex;
+            }
+            img {
+              margin-right: 15px;
+            }
+            .photoUrl-displayName-wrapper {
+              display: flex;
               img {
-                width: 340px;
-                &:hover {
-                  scale: 1.15;
-                  transition: 0.3s;
-                }
+                border-radius: 50%;
+              }
+              div {
+                font-size: 20px;
+                font-weight: 600;
+                align-self: center;
+                margin-right: 15px;
               }
             }
           }
@@ -53,7 +68,7 @@ header {
         }
       }
       .actions {
-        width: 50%;
+        width: 20%;
         display: flex;
         justify-content: end;
         .social {

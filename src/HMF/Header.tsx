@@ -1,6 +1,20 @@
+import { signOut } from "firebase/auth";
 import { NavLink } from "react-router-dom";
+import { auth } from "../config/firebase";
+import Button from "../utilities/Button";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Header() {
+  const [isRegistratedUser] = useAuthState(auth);
+  if (isRegistratedUser?.photoURL === null) return;
+
+  async function logout() {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <header>
       <div className="header-background"></div>
@@ -9,17 +23,19 @@ export default function Header() {
           <div className="titleNavWrapper">
             <div className="logo">
               <NavLink to={"/"}>
-                <div className="my-logo-wrapper-header">
-                  <img src="photos/UnityLogo.png" alt="" />
-                </div>
+                <img src="photos/UnityLogoCuted.png" alt="" className="unity-image" />
+                {isRegistratedUser ? (
+                  <div className="photoUrl-displayName-wrapper">
+                    <div>{isRegistratedUser?.displayName || isRegistratedUser?.email}</div>
+                    <img src={isRegistratedUser?.photoURL} alt="" />
+                  </div>
+                ) : (
+                  <div className="my-logo-wrapper-header">
+                    <img src="photos/UnityLogo.png" alt="" />
+                  </div>
+                )}
               </NavLink>
             </div>
-          </div>
-          <div className="navbar-wrapper">
-            <nav>
-              <NavLink to={"/"}>My Profile</NavLink>
-              <NavLink to={"/"}>Registration Form</NavLink>
-            </nav>
           </div>
           <div className="actions">
             <div className="social">
@@ -35,6 +51,7 @@ export default function Header() {
               <a href="https://twitter.com/UnityVballClub">
                 <img alt="" src="/photos/twitter.png"></img>
               </a>
+              {isRegistratedUser && <Button onClick={logout} text="Log out" type="button" />}
             </div>
           </div>
         </div>
