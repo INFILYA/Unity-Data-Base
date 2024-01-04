@@ -118,6 +118,19 @@ main {
           }
         }
       }
+      .table-section {
+        table {
+          caption {
+            nav {
+              display: flex;
+              justify-content: center;
+              .table-nav-buttons {
+                margin: 1vw;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

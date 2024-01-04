@@ -115,6 +115,13 @@ main article section .block-content .form-wrapper form .field-list fieldset sele
   display: flex;
   justify-content: center;
 }
+main article section .table-section table caption nav {
+  display: flex;
+  justify-content: center;
+}
+main article section .table-section table caption nav .table-nav-buttons {
+  margin: 1vw;
+}
 
 footer {
   background-color: green;

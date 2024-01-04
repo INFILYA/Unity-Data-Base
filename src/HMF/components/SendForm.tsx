@@ -208,46 +208,6 @@ export default function SendForm() {
                         required
                       />
                     </Fieldset>
-                    {/* Gender*/}
-                    <Fieldset valid={styledComponentValidator(!userInfo.gender)}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Your gender</strong>
-                          </span>
-                          {!userInfo.gender && <span style={{ opacity: 0.5 }}> (required)</span>}
-                        </div>
-                      </legend>
-                      <select onChange={handleUserChange} name="gender">
-                        <option value="" onClick={handleUserTeamCancel}>
-                          Choose your gender
-                        </option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </select>
-                    </Fieldset>
-                    {/* Belongs to team */}
-                    {userInfo.gender && (
-                      <Fieldset valid={styledComponentValidator(!userInfo.team)}>
-                        <legend>
-                          <div className="forspan">
-                            <span>
-                              <strong>Team</strong>
-                            </span>
-                            {!userInfo.team && <span style={{ opacity: 0.5 }}> (required)</span>}
-                          </div>
-                        </legend>
-                        <select onChange={handleUserChange} name="team">
-                          <option value="">Choose your team</option>
-                          <option value="u-13">U-13</option>
-                          <option value="u-14">U-14</option>
-                          <option value="u-15">U-15</option>
-                          <option value="u-16">U-16</option>
-                          <option value="u-17">U-17</option>
-                          <option value="u-18">U-18</option>
-                        </select>
-                      </Fieldset>
-                    )}
                     {/* Position */}
                     <Fieldset valid={styledComponentValidator(!userInfo.position)}>
                       <legend>
@@ -282,6 +242,66 @@ export default function SendForm() {
                         </option>
                       </select>
                     </Fieldset>
+                    {/* Gender*/}
+                    <Fieldset valid={styledComponentValidator(!userInfo.gender)}>
+                      <legend>
+                        <div className="forspan">
+                          <span>
+                            <strong>
+                              {userInfo.position === "coach" ? "Your team gender" : "Your gender"}
+                            </strong>
+                          </span>
+                          {!userInfo.gender && <span style={{ opacity: 0.5 }}> (required)</span>}
+                        </div>
+                      </legend>
+                      <select onChange={handleUserChange} name="gender">
+                        <option value="" onClick={handleUserTeamCancel}>
+                          Choose your gender
+                        </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                    </Fieldset>
+                    {/* Belongs to team */}
+                    {userInfo.gender && (
+                      <Fieldset valid={styledComponentValidator(!userInfo.team)}>
+                        <legend>
+                          <div className="forspan">
+                            <span>
+                              <strong>Team</strong>
+                            </span>
+                            {!userInfo.team && <span style={{ opacity: 0.5 }}> (required)</span>}
+                          </div>
+                        </legend>
+                        <select onChange={handleUserChange} name="team">
+                          <option value="">Choose your team</option>
+                          {userInfo.gender === "female" ? (
+                            <>
+                              <option value="Resilience">U-13 Girls Resilience</option>
+                              <option value="Vitality">U-14 Girls Vitality</option>
+                              <option value="Chaos">U-15 Girls Chaos</option>
+                              <option value="Fastball">U-15 Girls Fastball</option>
+                              <option value="Strive">U-16 Girls Strive</option>
+                              <option value="Tenacity">U-16 Girls Tenacity</option>
+                              <option value="Extreme">U-17 Girls Extreme</option>
+                              <option value="Shock">U-17 Girls Shock</option>
+                              <option value="Ace">U-18 Girls Ace</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="Tigers">U-12 Boys Tigers</option>
+                              <option value="Force">U-13 Boys Force</option>
+                              <option value="Nova">U-14 Boys Nova</option>
+                              <option value="Impact">U-15 Boys Impact</option>
+                              <option value="Technique">U-15 Boys Technique</option>
+                              <option value="Bushido">U-16 Boys Bushido</option>
+                              <option value="Valour">U-17 Boys Valour</option>
+                              <option value="Blue">U-17 Boys Blue</option>
+                            </>
+                          )}
+                        </select>
+                      </Fieldset>
+                    )}
                     {!(userInfo.position === "coach" || userInfo.position === "") && (
                       <>
                         {/* Hand */}
