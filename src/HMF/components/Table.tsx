@@ -18,7 +18,7 @@ export default function Table() {
     setPlayers(getFromLocalStorage("unityPlayers"));
   }, []);
   const isUserHaveProfile = (arr: TUserInfo[]): TUserInfo[] => {
-    if (isRegistratedUser?.email === "a.harmash1208@gmail.com") return arr;
+    // if (isRegistratedUser?.email === "a.harmash1208@gmail.com") return arr;
     if (arr.find((player) => player.email === isRegistratedUser?.email)?.position !== "coach") {
       return arr.filter((player) => player.email === isRegistratedUser?.email);
     } else

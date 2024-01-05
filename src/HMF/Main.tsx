@@ -13,9 +13,14 @@ export default function Main() {
     setPlayers(getFromLocalStorage("unityPlayers"));
   }, []);
   const showRightData = (arr: TUserInfo[]) => {
-    if (isRegistratedUser?.email === "a.harmash1208@gmail.com") return true;
+    // if (isRegistratedUser?.email === "a.harmash1208@gmail.com") return true;
     const condition = arr.find((player) => player.email === isRegistratedUser?.email);
     return condition;
   };
-  return <>{showRightData(players) ? <Table /> : <SendForm />}</>;
+  console.log(getFromLocalStorage("unityPlayers"));
+  return (
+    <>
+      {showRightData(players) ? <Table /> : <SendForm players={players} setPlayers={setPlayers} />}
+    </>
+  );
 }

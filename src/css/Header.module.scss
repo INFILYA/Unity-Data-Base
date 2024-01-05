@@ -25,11 +25,10 @@ header {
     z-index: 3;
     .innerContainer {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       width: 100%;
       .titleNavWrapper {
-        width: 70%;
         height: 60px;
         display: flex;
         min-width: 340px;
@@ -68,13 +67,14 @@ header {
         }
       }
       .actions {
-        width: 30%;
         display: flex;
         justify-content: end;
         .social {
           display: flex;
           a {
-            margin: 0.5vmax;
+            margin: 5px;
+            width: 35px;
+            height: 35px;
             img {
               width: 35px;
               &:hover {
@@ -87,8 +87,7 @@ header {
         .logout-button-wrapper {
           display: flex;
           justify-content: center;
-          width: 40%;
-          margin-left: 2vmin;
+          margin-left: 20px;
         }
       }
     }

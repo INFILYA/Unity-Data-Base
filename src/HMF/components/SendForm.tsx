@@ -3,9 +3,20 @@ import SectionWrapper from "../../wpappers/SectionWrapper";
 import { TUserInfo } from "../../types/Types";
 import Button from "../../utilities/Button";
 import { Fieldset } from "../../css/UnityDataBase.styled";
+import { dataBase } from "../../config/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
-export default function SendForm() {
+type TSendForm = {
+  players: TUserInfo[];
+  setPlayers(players: TUserInfo[]): void;
+};
+
+export default function SendForm(props: TSendForm) {
+  const { players, setPlayers } = props;
+
+  // const navigate = useNavigate();
   const [formIsSended, setFormIsSended] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<TUserInfo>({
     firstName: "",
     lastName: "",
@@ -22,6 +33,28 @@ export default function SendForm() {
     reach: 0,
     photo: "",
   });
+
+  // Save data
+  const submitUserInfo = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      setIsLoading(!isLoading);
+      // Save Player
+      const sendForm = doc(
+        dataBase,
+        "players",
+        `${userInfo?.firstName} ${userInfo?.lastName} ${userInfo.position} ${userInfo?.team}`
+      );
+      await setDoc(sendForm, userInfo);
+      setPlayers([...players, userInfo]);
+      setFormIsSended(!formIsSended);
+      localStorage.setItem("unityPlayers", JSON.stringify([...players, userInfo]));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading((prev) => !prev);
+    }
+  };
 
   function handleUserChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -41,16 +74,12 @@ export default function SendForm() {
       reach: "none",
     });
   }
+
   function handleBackNonCoachesFields() {
     if (userInfo.position !== "coach") {
       setUserInfo({ ...userInfo, hand: "", height: 0, weight: 0, number: 0, reach: 0 });
     }
   }
-
-  const submitUserInfo = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormIsSended(!formIsSended);
-  };
 
   const checkLength = (text: string) => {
     return text.toString().length <= 1;
@@ -98,6 +127,7 @@ export default function SendForm() {
     isEmptyFields ||
     properPhoneLength ||
     checkPhotoFormat(userInfo.photo);
+  console.log(userInfo);
   return (
     <SectionWrapper
       content={
@@ -222,22 +252,22 @@ export default function SendForm() {
                         <option value="" onClick={handleBackNonCoachesFields}>
                           Choose position
                         </option>
-                        <option value="outsideHitter" onClick={handleBackNonCoachesFields}>
+                        <option value="OHitter" onClick={handleBackNonCoachesFields}>
                           Outside Hitter
                         </option>
-                        <option value="opposite" onClick={handleBackNonCoachesFields}>
+                        <option value="Opposite" onClick={handleBackNonCoachesFields}>
                           Opposite
                         </option>
-                        <option value="setter" onClick={handleBackNonCoachesFields}>
+                        <option value="Setter" onClick={handleBackNonCoachesFields}>
                           Setter
                         </option>
-                        <option value="libero" onClick={handleBackNonCoachesFields}>
+                        <option value="Libero" onClick={handleBackNonCoachesFields}>
                           Libero
                         </option>
-                        <option value="middleBlocker" onClick={handleBackNonCoachesFields}>
+                        <option value="MBlocker" onClick={handleBackNonCoachesFields}>
                           Middle Blocker
                         </option>
-                        <option value="coach" onClick={handleFillCoachFields}>
+                        <option value="Coach" onClick={handleFillCoachFields}>
                           Coach
                         </option>
                       </select>
@@ -277,26 +307,26 @@ export default function SendForm() {
                           <option value="">Choose your team</option>
                           {userInfo.gender === "female" ? (
                             <>
-                              <option value="Resilience">U-13 Girls Resilience</option>
-                              <option value="Vitality">U-14 Girls Vitality</option>
-                              <option value="Chaos">U-15 Girls Chaos</option>
-                              <option value="Fastball">U-15 Girls Fastball</option>
-                              <option value="Strive">U-16 Girls Strive</option>
-                              <option value="Tenacity">U-16 Girls Tenacity</option>
-                              <option value="Extreme">U-17 Girls Extreme</option>
-                              <option value="Shock">U-17 Girls Shock</option>
-                              <option value="Ace">U-18 Girls Ace</option>
+                              <option value="Resilience-13">U-13 Girls Resilience</option>
+                              <option value="Vitality-14">U-14 Girls Vitality</option>
+                              <option value="Chaos-15">U-15 Girls Chaos</option>
+                              <option value="Fastball-15">U-15 Girls Fastball</option>
+                              <option value="Strive-16">U-16 Girls Strive</option>
+                              <option value="Tenacity-16">U-16 Girls Tenacity</option>
+                              <option value="Extreme-17">U-17 Girls Extreme</option>
+                              <option value="Shock-17">U-17 Girls Shock</option>
+                              <option value="Ace-18">U-18 Girls Ace</option>
                             </>
                           ) : (
                             <>
-                              <option value="Tigers">U-12 Boys Tigers</option>
-                              <option value="Force">U-13 Boys Force</option>
-                              <option value="Nova">U-14 Boys Nova</option>
-                              <option value="Impact">U-15 Boys Impact</option>
-                              <option value="Technique">U-15 Boys Technique</option>
-                              <option value="Bushido">U-16 Boys Bushido</option>
-                              <option value="Valour">U-17 Boys Valour</option>
-                              <option value="Blue">U-17 Boys Blue</option>
+                              <option value="Tigers-12">U-12 Boys Tigers</option>
+                              <option value="Force-13">U-13 Boys Force</option>
+                              <option value="Nova-14">U-14 Boys Nova</option>
+                              <option value="Impact-15">U-15 Boys Impact</option>
+                              <option value="Technique-15">U-15 Boys Technique</option>
+                              <option value="Bushido-16">U-16 Boys Bushido</option>
+                              <option value="Valour-17">U-17 Boys Valour</option>
+                              <option value="Blue-18">U-18 Boys Blue</option>
                             </>
                           )}
                         </select>
@@ -389,7 +419,7 @@ export default function SendForm() {
                             <input
                               type="range"
                               onChange={handleUserChange}
-                              value={userInfo.number}
+                              value={+userInfo.number}
                               name="number"
                               min={1}
                               max={99}

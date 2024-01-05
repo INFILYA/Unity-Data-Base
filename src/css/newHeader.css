@@ -27,12 +27,11 @@ header .barWrapper {
 }
 header .barWrapper .innerContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 header .barWrapper .innerContainer .titleNavWrapper {
-  width: 70%;
   height: 60px;
   display: flex;
   min-width: 340px;
@@ -71,7 +70,6 @@ header .barWrapper .innerContainer .navbar-wrapper a {
   margin: 10px;
 }
 header .barWrapper .innerContainer .actions {
-  width: 30%;
   display: flex;
   justify-content: end;
 }
@@ -79,7 +77,9 @@ header .barWrapper .innerContainer .actions .social {
   display: flex;
 }
 header .barWrapper .innerContainer .actions .social a {
-  margin: 0.5vmax;
+  margin: 5px;
+  width: 35px;
+  height: 35px;
 }
 header .barWrapper .innerContainer .actions .social a img {
   width: 35px;
@@ -91,8 +91,7 @@ header .barWrapper .innerContainer .actions .social a img:hover {
 header .barWrapper .innerContainer .actions .logout-button-wrapper {
   display: flex;
   justify-content: center;
-  width: 40%;
-  margin-left: 2vmin;
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=newHeader.css.map */

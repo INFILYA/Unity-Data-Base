@@ -40,6 +40,7 @@ main {
   margin-top: 91.3px;
   article {
     section {
+      // Form
       .block-content {
         width: 33vmax;
         min-width: 340px;
@@ -118,6 +119,7 @@ main {
           }
         }
       }
+      // Table
       .table-section {
         table {
           caption {
@@ -126,6 +128,26 @@ main {
               justify-content: center;
               .table-nav-buttons {
                 margin: 1vw;
+              }
+            }
+          }
+          tbody {
+            tr {
+              th {
+                border: 1px solid black;
+                box-sizing: border-box;
+                button {
+                  border: none;
+                  width: 100%;
+                  padding: 5px;
+                }
+              }
+            }
+            .rating-row {
+              td {
+                text-align: center;
+                padding: 5px;
+                border: 1px solid black;
               }
             }
           }

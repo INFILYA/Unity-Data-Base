@@ -122,6 +122,20 @@ main article section .table-section table caption nav {
 main article section .table-section table caption nav .table-nav-buttons {
   margin: 1vw;
 }
+main article section .table-section table tbody tr th {
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+main article section .table-section table tbody tr th button {
+  border: none;
+  width: 100%;
+  padding: 5px;
+}
+main article section .table-section table tbody .rating-row td {
+  text-align: center;
+  padding: 5px;
+  border: 1px solid black;
+}
 
 footer {
   background-color: green;
