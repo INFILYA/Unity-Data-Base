@@ -2,25 +2,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { TUserInfo } from "../types/Types";
 import SendForm from "./components/SendForm";
 import { auth } from "../config/firebase";
-import { useEffect, useState } from "react";
-import { getFromLocalStorage } from "../utilities/functions";
 import Table from "./components/Table";
+import { useSelector } from "react-redux";
+import { selectPlayers } from "../states/slices/playersSlice";
 
 export default function Main() {
   const [isRegistratedUser] = useAuthState(auth);
-  const [players, setPlayers] = useState<TUserInfo[]>([]);
-  useEffect(() => {
-    setPlayers(getFromLocalStorage("unityPlayers"));
-  }, []);
+  const players = useSelector(selectPlayers);
+
   const showRightData = (arr: TUserInfo[]) => {
-    // if (isRegistratedUser?.email === "a.harmash1208@gmail.com") return true;
     const condition = arr.find((player) => player.email === isRegistratedUser?.email);
     return condition;
   };
-  console.log(getFromLocalStorage("unityPlayers"));
-  return (
-    <>
-      {showRightData(players) ? <Table /> : <SendForm players={players} setPlayers={setPlayers} />}
-    </>
-  );
+  return <>{showRightData(players) ? <Table /> : <SendForm />}</>;
 }

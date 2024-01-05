@@ -15,7 +15,7 @@ export type TBUttonProps = {
 export type TUserInfo = {
   firstName: string;
   lastName: string;
-  email: string;
+  email: string | null | undefined;
   gender: string;
   team: string;
   position: string;

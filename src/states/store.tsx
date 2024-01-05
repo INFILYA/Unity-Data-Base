@@ -1,9 +1,10 @@
+import playersReducer from "./slices/playersSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
   reducer: {
-    // listOfTeams: listOfTeamsReducer, //+
+    players: playersReducer,
   },
 });
 

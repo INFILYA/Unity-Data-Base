@@ -1,31 +1,30 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TUserInfo } from "../../types/Types";
-import { compare, getFromLocalStorage } from "../../utilities/functions";
+import { compare } from "../../utilities/functions";
 import SectionWrapper from "../../wpappers/SectionWrapper";
 import Button from "../../utilities/Button";
 import { Categorys } from "./table components/Categorys";
+import { useSelector } from "react-redux";
+import { selectPlayers } from "../../states/slices/playersSlice";
 
 export default function Table() {
   const [isRegistratedUser] = useAuthState(auth);
-  const [players, setPlayers] = useState<TUserInfo[]>([]);
+  const players = useSelector(selectPlayers);
   const [filteredPlayers, setFilteredPlayers] = useState<TUserInfo[]>([]);
   const [isChoosenFilter, setChoosenFilter] = useState<boolean>(false);
   const [isBiggest, setIsBiggest] = useState<boolean>(false);
 
-  useEffect(() => {
-    setPlayers(getFromLocalStorage("unityPlayers"));
-  }, []);
   const isUserHaveProfile = (arr: TUserInfo[]): TUserInfo[] => {
     // if (isRegistratedUser?.email === "a.harmash1208@gmail.com") return arr;
-    if (arr.find((player) => player.email === isRegistratedUser?.email)?.position !== "coach") {
+    if (arr.find((player) => player.email === isRegistratedUser?.email)?.position !== "Coach") {
       return arr.filter((player) => player.email === isRegistratedUser?.email);
     } else
       return arr.filter(
         (player) =>
           player.team === arr.find((player) => player.email === isRegistratedUser?.email)?.team &&
-          player.position !== "coach"
+          player.position !== "Coach"
       );
   };
 

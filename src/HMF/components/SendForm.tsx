@@ -3,16 +3,15 @@ import SectionWrapper from "../../wpappers/SectionWrapper";
 import { TUserInfo } from "../../types/Types";
 import Button from "../../utilities/Button";
 import { Fieldset } from "../../css/UnityDataBase.styled";
-import { dataBase } from "../../config/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { auth, dataBase } from "../../config/firebase";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useAppDispatch } from "../../states/store";
+import { setPlayers } from "../../states/slices/playersSlice";
 
-type TSendForm = {
-  players: TUserInfo[];
-  setPlayers(players: TUserInfo[]): void;
-};
-
-export default function SendForm(props: TSendForm) {
-  const { players, setPlayers } = props;
+export default function SendForm() {
+  const [isRegistratedUser] = useAuthState(auth);
+  const dispatch = useAppDispatch();
 
   // const navigate = useNavigate();
   const [formIsSended, setFormIsSended] = useState<boolean>(true);
@@ -20,7 +19,7 @@ export default function SendForm(props: TSendForm) {
   const [userInfo, setUserInfo] = useState<TUserInfo>({
     firstName: "",
     lastName: "",
-    email: "",
+    email: isRegistratedUser?.email,
     gender: "",
     team: "",
     position: "",
@@ -37,18 +36,22 @@ export default function SendForm(props: TSendForm) {
   // Save data
   const submitUserInfo = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setUserInfo({ ...userInfo, email: isRegistratedUser?.email });
     try {
       setIsLoading(!isLoading);
       // Save Player
       const sendForm = doc(
         dataBase,
-        "players",
-        `${userInfo?.firstName} ${userInfo?.lastName} ${userInfo.position} ${userInfo?.team}`
+        `${userInfo?.team}`,
+        `${userInfo?.firstName} ${userInfo?.lastName} ${userInfo.position}`
       );
       await setDoc(sendForm, userInfo);
-      setPlayers([...players, userInfo]);
+      // Load players immidiatelly
+      const playersData = await getDocs(collection(dataBase, userInfo.team));
+      const choosenTeamPlayers = playersData.docs.map((doc) => doc.data());
+      dispatch(setPlayers(choosenTeamPlayers as TUserInfo[]));
+      localStorage.setItem("unityPlayerInfo", JSON.stringify(userInfo));
       setFormIsSended(!formIsSended);
-      localStorage.setItem("unityPlayers", JSON.stringify([...players, userInfo]));
     } catch (err) {
       console.error(err);
     } finally {
@@ -76,28 +79,13 @@ export default function SendForm(props: TSendForm) {
   }
 
   function handleBackNonCoachesFields() {
-    if (userInfo.position !== "coach") {
+    if (userInfo.position !== "Coach") {
       setUserInfo({ ...userInfo, hand: "", height: 0, weight: 0, number: 0, reach: 0 });
     }
   }
 
   const checkLength = (text: string) => {
     return text.toString().length <= 1;
-  };
-  const checkUserEmail = (email: string) => {
-    const doubleDots = email.match(/[.]{2,}/g);
-    const startWithDot = email.match(/^[.]/);
-    const nameAbuse = email.match(/^abuse[@]/);
-    const namePostmaster = email.match(/^postmaster[@]/);
-    const correctLength = email.match(/^.{1,30}[@]\w{2,9}[.]\w{2,9}$/);
-    const specialSymbols = email.match(/[&=+<>,_'-\s]/g);
-    if (doubleDots) return true;
-    else if (startWithDot) return true;
-    else if (nameAbuse) return true;
-    else if (namePostmaster) return true;
-    else if (!correctLength) return true;
-    else if (specialSymbols) return true;
-    else return false;
   };
   const checkPhotoFormat = (photo: string) => {
     const jpg = photo.toLowerCase().match(/jpg/g);
@@ -121,13 +109,8 @@ export default function SendForm(props: TSendForm) {
   };
   const isEmptyFields = Object.values(userInfo).some((field) => checkLength(field as string));
   const properPhoneLength = userInfo.telephone.length !== 12;
+  const disabledButton = isEmptyFields || properPhoneLength || checkPhotoFormat(userInfo.photo);
 
-  const disabledButton =
-    checkUserEmail(userInfo.email) ||
-    isEmptyFields ||
-    properPhoneLength ||
-    checkPhotoFormat(userInfo.photo);
-  console.log(userInfo);
   return (
     <SectionWrapper
       content={
@@ -181,7 +164,7 @@ export default function SendForm(props: TSendForm) {
                       />
                     </Fieldset>
                     {/* Email */}
-                    <Fieldset valid={styledComponentValidator(checkUserEmail(userInfo.email))}>
+                    {/* <Fieldset valid={styledComponentValidator(checkUserEmail(userInfo.email))}>
                       <legend>
                         <div className="forspan">
                           <span>
@@ -200,7 +183,7 @@ export default function SendForm(props: TSendForm) {
                         name="email"
                         required
                       />
-                    </Fieldset>
+                    </Fieldset> */}
                     {/* Telephone */}
                     <Fieldset valid={styledComponentValidator(properPhoneLength)}>
                       <legend>
@@ -332,7 +315,7 @@ export default function SendForm(props: TSendForm) {
                         </select>
                       </Fieldset>
                     )}
-                    {!(userInfo.position === "coach" || userInfo.position === "") && (
+                    {!(userInfo.position === "Coach" || userInfo.position === "") && (
                       <>
                         {/* Hand */}
                         <Fieldset valid={styledComponentValidator(!userInfo.hand)}>

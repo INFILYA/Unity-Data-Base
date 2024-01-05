@@ -11,6 +11,7 @@ export default function Header() {
   async function logout() {
     try {
       await signOut(auth);
+      
     } catch (err) {
       console.error(err);
     }
@@ -26,8 +27,8 @@ export default function Header() {
                 <img src="photos/UnityLogoCuted.png" alt="" className="unity-image" />
                 {isRegistratedUser ? (
                   <div className="photoUrl-displayName-wrapper">
-                    <div>{isRegistratedUser?.displayName || isRegistratedUser?.email}</div>
                     <img src={isRegistratedUser?.photoURL} alt="" />
+                    <div>{isRegistratedUser?.displayName || isRegistratedUser?.email} {}</div>
                   </div>
                 ) : (
                   <div className="my-logo-wrapper-header">

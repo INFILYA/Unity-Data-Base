@@ -8,31 +8,35 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, dataBase } from "./config/firebase";
 import { useEffect } from "react";
 import { Auth } from "./HMF/components/Auth";
-import { later } from "./utilities/functions";
 import { collection, getDocs } from "firebase/firestore";
+import { getFromLocalStorage, later } from "./utilities/functions";
+import { useAppDispatch } from "./states/store";
+import { setPlayers } from "./states/slices/playersSlice";
+import { TUserInfo } from "./types/Types";
 
 export default function UnityDataBase() {
   const [isRegistratedUser] = useAuthState(auth);
-  // const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-
+  // ПРОБЛЕМА!!!
   useEffect(() => {
     async function getData() {
       try {
-        // setIsLoading(true);
-        await later(2500);
-        const playersData = await getDocs(collection(dataBase, "players"));
-        const players = playersData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-        localStorage.setItem("unityPlayers", JSON.stringify(players));
+        await later(1000);
+        if (getFromLocalStorage("unityPlayerInfo")) {
+          const choosenTeam = getFromLocalStorage("unityPlayerInfo");
+          const playersData = await getDocs(collection(dataBase, choosenTeam?.team));
+          const players = playersData.docs.map((doc) => doc.data());
+          dispatch(setPlayers(players as TUserInfo[]));
+          // localStorage.setItem("unityPlayers", JSON.stringify(players));
+        }
       } catch (error) {
         console.error(error);
-      } finally {
-        // setIsLoading(false);
       }
     }
     getData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     async function signIn() {
