@@ -39,11 +39,13 @@ export default function SendForm() {
     setUserInfo({ ...userInfo, email: isRegistratedUser?.email });
     try {
       setIsLoading(!isLoading);
+      // ПРОБЛЕМА!!! ПЕРЕДЕЛАТЬ!!!
+
       // Save Player
       const sendForm = doc(
         dataBase,
         `${userInfo?.team}`,
-        `${userInfo?.firstName} ${userInfo?.lastName} ${userInfo.position}`
+        `${userInfo?.firstName} ${userInfo?.lastName} ${userInfo.position} #${userInfo.number}`
       );
       await setDoc(sendForm, userInfo);
       // Load players immidiatelly
