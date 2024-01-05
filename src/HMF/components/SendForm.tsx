@@ -237,19 +237,19 @@ export default function SendForm() {
                         <option value="" onClick={handleBackNonCoachesFields}>
                           Choose position
                         </option>
-                        <option value="OHitter" onClick={handleBackNonCoachesFields}>
+                        <option value="OH" onClick={handleBackNonCoachesFields}>
                           Outside Hitter
                         </option>
-                        <option value="Opposite" onClick={handleBackNonCoachesFields}>
+                        <option value="OPP" onClick={handleBackNonCoachesFields}>
                           Opposite
                         </option>
-                        <option value="Setter" onClick={handleBackNonCoachesFields}>
+                        <option value="S" onClick={handleBackNonCoachesFields}>
                           Setter
                         </option>
-                        <option value="Libero" onClick={handleBackNonCoachesFields}>
+                        <option value="L" onClick={handleBackNonCoachesFields}>
                           Libero
                         </option>
-                        <option value="MBlocker" onClick={handleBackNonCoachesFields}>
+                        <option value="MB" onClick={handleBackNonCoachesFields}>
                           Middle Blocker
                         </option>
                         <option value="Coach" onClick={handleFillCoachFields}>
