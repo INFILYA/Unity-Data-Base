@@ -20,11 +20,11 @@ export type TUserInfo = {
   team: string;
   position: string;
   birthday: string;
-  height: number | string;
-  weight: number | string;
-  number: number | string;
+  height: string;
+  weight: string;
+  number: string;
   telephone: string;
   photo: string;
-  reach: number | string;
+  reach: string;
   hand: string;
 };

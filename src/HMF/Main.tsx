@@ -12,7 +12,10 @@ export default function Main() {
 
   const showRightData = (arr: TUserInfo[]) => {
     const condition = arr.find((player) => player.email === isRegistratedUser?.email);
+    console.log(condition?.team);
+
     return condition;
   };
+
   return <>{showRightData(players) ? <Table /> : <SendForm />}</>;
 }

@@ -169,6 +169,14 @@ main {
           }
         }
       }
+      //PlayerInfo
+      .playerInfo-wrapper {
+        display: flex;
+        flex-direction: column;
+        div {
+          display: flex;
+        }
+      }
     }
   }
 }

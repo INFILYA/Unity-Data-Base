@@ -16,6 +16,8 @@ export default function SendForm() {
   // const navigate = useNavigate();
   const [formIsSended, setFormIsSended] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [coachAcces, setCoachAcces] = useState<boolean>(false);
+  const [coachPassword, setCoachPassword] = useState<string>("");
   const [userInfo, setUserInfo] = useState<TUserInfo>({
     firstName: "",
     lastName: "",
@@ -26,10 +28,10 @@ export default function SendForm() {
     hand: "",
     telephone: "",
     birthday: "",
-    height: 0,
-    weight: 0,
-    number: 0,
-    reach: 0,
+    height: "",
+    weight: "",
+    number: "",
+    reach: "",
     photo: "",
   });
 
@@ -62,32 +64,26 @@ export default function SendForm() {
   };
 
   function handleUserChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value,
+    });
   }
 
   function handleUserTeamCancel() {
     setUserInfo({ ...userInfo, team: "" });
   }
 
-  function handleFillCoachFields() {
-    setUserInfo({
-      ...userInfo,
-      hand: "none",
-      height: "none",
-      weight: "none",
-      number: "none",
-      reach: "none",
-    });
-  }
-
   function handleBackNonCoachesFields() {
+    setCoachAcces(false);
     if (userInfo.position !== "Coach") {
-      setUserInfo({ ...userInfo, hand: "", height: 0, weight: 0, number: 0, reach: 0 });
+      setUserInfo({ ...userInfo, hand: "", height: "", weight: "", number: "", reach: "" });
     }
   }
 
   const checkLength = (text: string) => {
-    return text.toString().length <= 1;
+    if (typeof text === "number") return true;
+    else return text.toString().length <= 1;
   };
   const checkPhotoFormat = (photo: string) => {
     const jpg = photo.toLowerCase().match(/jpg/g);
@@ -109,10 +105,27 @@ export default function SendForm() {
   const styledComponentValidator = (boolean: boolean): string => {
     return boolean.toString();
   };
+  // ПРОБЛЕМА!!!
+  const checkCoachPassword = (coachPassword: string) => {
+    if (coachPassword === "1234567890") {
+      setUserInfo({
+        ...userInfo,
+        position: "Coach",
+        hand: "none",
+        height: "none",
+        weight: "none",
+        number: "none",
+        reach: "none",
+      });
+      return true;
+    }
+    return false;
+  };
   const isEmptyFields = Object.values(userInfo).some((field) => checkLength(field as string));
   const properPhoneLength = userInfo.telephone.length !== 12;
   const disabledButton = isEmptyFields || properPhoneLength || checkPhotoFormat(userInfo.photo);
 
+  console.log(userInfo.number.length);
   return (
     <SectionWrapper
       content={
@@ -165,27 +178,6 @@ export default function SendForm() {
                         required
                       />
                     </Fieldset>
-                    {/* Email */}
-                    {/* <Fieldset valid={styledComponentValidator(checkUserEmail(userInfo.email))}>
-                      <legend>
-                        <div className="forspan">
-                          <span>
-                            <strong>Email</strong>
-                          </span>
-                          {!userInfo.email && <span style={{ opacity: 0.5 }}> (required)</span>}
-                          {checkUserEmail(userInfo.email) && userInfo.email && (
-                            <span style={{ opacity: 0.5 }}>(invalid Email)</span>
-                          )}
-                        </div>
-                      </legend>
-                      <input
-                        type="email"
-                        onChange={handleUserChange}
-                        value={userInfo.email}
-                        name="email"
-                        required
-                      />
-                    </Fieldset> */}
                     {/* Telephone */}
                     <Fieldset valid={styledComponentValidator(properPhoneLength)}>
                       <legend>
@@ -240,30 +232,52 @@ export default function SendForm() {
                         <option value="OH" onClick={handleBackNonCoachesFields}>
                           Outside Hitter
                         </option>
-                        <option value="OPP" onClick={handleBackNonCoachesFields}>
+                        <option value="Opp" onClick={handleBackNonCoachesFields}>
                           Opposite
                         </option>
-                        <option value="S" onClick={handleBackNonCoachesFields}>
+                        <option value="Set" onClick={handleBackNonCoachesFields}>
                           Setter
                         </option>
-                        <option value="L" onClick={handleBackNonCoachesFields}>
+                        <option value="Lib" onClick={handleBackNonCoachesFields}>
                           Libero
                         </option>
                         <option value="MB" onClick={handleBackNonCoachesFields}>
                           Middle Blocker
                         </option>
-                        <option value="Coach" onClick={handleFillCoachFields}>
+                        <option value="" onClick={() => setCoachAcces(true)}>
                           Coach
                         </option>
                       </select>
                     </Fieldset>
+                    {/* Acces to Position coach */}
+                    {coachAcces && (
+                      <Fieldset
+                        valid={styledComponentValidator(!checkCoachPassword(coachPassword))}
+                      >
+                        <legend>
+                          <div className="forspan">
+                            <span>
+                              <strong>Enter the Password</strong>
+                            </span>
+                            {!checkCoachPassword(coachPassword) && (
+                              <span style={{ opacity: 0.5 }}> (Invalid)</span>
+                            )}
+                          </div>
+                        </legend>
+                        <input
+                          type="text"
+                          onChange={(e) => setCoachPassword(e.target.value)}
+                          value={coachPassword}
+                        />
+                      </Fieldset>
+                    )}
                     {/* Gender*/}
                     <Fieldset valid={styledComponentValidator(!userInfo.gender)}>
                       <legend>
                         <div className="forspan">
                           <span>
                             <strong>
-                              {userInfo.position === "coach" ? "Your team gender" : "Your gender"}
+                              {userInfo.position === "Coach" ? "Your team gender" : "Your gender"}
                             </strong>
                           </span>
                           {!userInfo.gender && <span style={{ opacity: 0.5 }}> (required)</span>}
@@ -404,7 +418,7 @@ export default function SendForm() {
                             <input
                               type="range"
                               onChange={handleUserChange}
-                              value={+userInfo.number}
+                              value={userInfo.number}
                               name="number"
                               min={1}
                               max={99}

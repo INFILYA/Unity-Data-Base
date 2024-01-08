@@ -13,13 +13,14 @@ import { getFromLocalStorage, later } from "./utilities/functions";
 import { useAppDispatch } from "./states/store";
 import { setPlayers } from "./states/slices/playersSlice";
 import { TUserInfo } from "./types/Types";
+import PlayerInfo from "./HMF/components/table components/PlayerInfo";
 
 export default function UnityDataBase() {
   const [isRegistratedUser] = useAuthState(auth);
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  // ПРОБЛЕМА!!! 
+  // ПРОБЛЕМА!!!
   useEffect(() => {
     async function getData() {
       try {
@@ -29,7 +30,6 @@ export default function UnityDataBase() {
           const playersData = await getDocs(collection(dataBase, choosenTeam?.team));
           const players = playersData.docs.map((doc) => doc.data());
           dispatch(setPlayers(players as TUserInfo[]));
-          // localStorage.setItem("unityPlayers", JSON.stringify(players));
         }
       } catch (error) {
         console.error(error);
@@ -41,11 +41,12 @@ export default function UnityDataBase() {
   useEffect(() => {
     async function signIn() {
       try {
-        if (isRegistratedUser) {
-          navigate("/");
-        } else navigate("/Auth");
+        if (!isRegistratedUser) {
+          navigate("/Auth");
+        }
       } catch (err) {
         console.log(err);
+        navigate("/Auth");
       }
     }
     signIn();
@@ -61,6 +62,7 @@ export default function UnityDataBase() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/Auth" element={<Auth />} />
+            <Route path="/PlayerInfo" element={<PlayerInfo />} />
           </Routes>
         </article>
       </main>

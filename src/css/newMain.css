@@ -158,6 +158,13 @@ main article section .table-section table tbody .rating-row td {
   font-weight: 600;
   overflow: hidden;
 }
+main article section .playerInfo-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+main article section .playerInfo-wrapper div {
+  display: flex;
+}
 
 footer {
   background-color: green;
