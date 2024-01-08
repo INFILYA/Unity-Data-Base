@@ -86,10 +86,11 @@ export default function PlayerInfo() {
           <div>
             <img src={playerInfo.photo} alt="" />
           </div>
-          <Button type="button" text="Delete Profile" onClick={deletePlayerProfile} />
           {/* <Button type="button" text="Delete Profile" onClick={updatePlayerProfile} /> */}
+          <Button type="button" text="Delete Profile" onClick={deletePlayerProfile} />
+          <Button type="button" text="Back" onClick={() => navigate("/")} />
         </div>
-      }
+      } 
     />
   );
 }
